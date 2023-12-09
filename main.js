@@ -26,15 +26,28 @@ document.addEventListener('yt-page-data-updated', function(){
 
 });
 
+function removeStyles(){
+
+}
+
 function initNewPlayer(userEmbedURL, adblockMessageParent){
     console.log("[INFO] Initializing new player...");
     let newPlayer = document.createElement("EMBED"); // create a new embed (i dont think they can legally show ads on embeds)
     newPlayer.setAttribute("id", "YOUTUBEADBLOCKBLOCKPLAYER");
     newPlayer.setAttribute("class", "style-scope ytd-enforcement-message-view-model"); // disguise the embed as the adblock message so it works under the parent element
-    newPlayer.setAttribute("height", String(window.screen.availHeight / 1.5));
-    newPlayer.setAttribute("width", String(window.screen.availWidth / 1.5));
-    newPlayer.setAttribute("src", userEmbedURL);
+    newPlayer.setAttribute("height", String(window.screen.availHeight / 1));
+    newPlayer.setAttribute("width", String((window.screen.availWidth / 1) - 20));
+    newPlayer.style.border = "1px solid green";
+    newPlayer.setAttribute("src", userEmbedURL);    
+    adblockMessageParent[0].style.setProperty("align-items", "baseline");
+    adblockMessageParent[0].style.overflow = "visible";    
     adblockMessageParent[0].appendChild(newPlayer); //put it on the parent
+
+    let messageElement = document.createElement("p");
+    messageElement.innerText = "adblock blocker circumvented :)";
+    messageElement.style.color = "white";
+
+    adblockMessageParent[0].parentElement.appendChild(messageElement);
 }
 
 
